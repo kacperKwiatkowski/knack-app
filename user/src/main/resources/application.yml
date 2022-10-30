@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /api/v.1.0/users
+
+spring:
+
+  main:
+    banner-mode: off
+
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/user
+    username: postgres_username
+    password: postgres_password
+    driverClassName: org.postgresql.Driver
+    hikari:
+      schema: user_service
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+application:
+  jwt:
+    secret-key: securesecuresecuresecuresecuresecuresecure
+    token-prefix: Bearer
+    token-expiration-after-days: 14
