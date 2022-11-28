@@ -23,4 +23,9 @@ public class ProductService : IProductService
     {
         await _productRepository.SaveProduct(product);
     }
+
+    public Task DeleteProduct(Guid productId)
+    {
+        return _productRepository.DeleteProduct(productId);
+    }
 }

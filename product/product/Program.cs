@@ -25,6 +25,12 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IBoothService, BoothService>();
 builder.Services.AddScoped<IBoothRepository, BoothRepository>();
 
+builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<IStockRepository, StockRepository>();
+
+builder.Services.AddScoped<IRateService, RateService>();
+builder.Services.AddScoped<IRateRepository, RateRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

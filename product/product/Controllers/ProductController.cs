@@ -9,15 +9,12 @@ namespace product.Controllers;
 [ApiController]
 public class ProductController : ControllerBase
 {
-    private readonly ProductDbContext _dbContext;
     private readonly IProductService _productService;
 
     public ProductController(
-        ProductDbContext dbContext,
         IProductService productService
     )
     {
-        _dbContext = dbContext;
         _productService = productService;
     }
 
@@ -31,6 +28,13 @@ public class ProductController : ControllerBase
     public async Task<IActionResult> Post([FromBody] Product product)
     {
         await _productService.SaveProduct(product);
+        return Ok();
+    }
+
+    [HttpDelete("{productId}")] 
+    public async Task<IActionResult> Delete(Guid productId)
+    {
+        await _productService.DeleteProduct(productId);
         return Ok();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using product.Data;
 using product.Models;
 using product.Service;
 
@@ -9,12 +8,30 @@ namespace product.Controllers;
 [ApiController]
 public class BoothController : ControllerBase
 {
-    private readonly ProductDbContext _dbContext;
+    private readonly IBoothService _boothService;
 
-    public BoothController(
-        ProductDbContext dbContext
-    )
+    public BoothController(IBoothService boothService)
     {
-        _dbContext = dbContext;
+        _boothService = boothService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        return Ok(await _boothService.GetAllBooths());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] Booth boothToSave)
+    {
+        await _boothService.SaveBooth(boothToSave);
+        return Ok();
+    }
+
+    [HttpDelete("boothId")]
+    public async Task<IActionResult> Delete(Guid boothId)
+    {
+        await _boothService.DeleteBooth(boothId);
+        return Ok();
     }
 }

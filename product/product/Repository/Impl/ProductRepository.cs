@@ -23,4 +23,10 @@ public class ProductRepository : IProductRepository
         _productDbContext.Products.Add(product);
         return _productDbContext.SaveChangesAsync();
     }
+
+    public Task DeleteProduct(Guid productId)
+    {
+        _productDbContext.Remove(new Product() { Id = productId });
+        return _productDbContext.SaveChangesAsync();
+    }
 }

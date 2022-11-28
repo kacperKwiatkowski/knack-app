@@ -10,9 +10,9 @@ public class ProductDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
-    public DbSet<Product> Booth { get; set; }
-    public DbSet<Product> Stock { get; set; }
-    public DbSet<Product> Rate { get; set; }
+    public DbSet<Booth> Booth { get; set; }
+    public DbSet<Stock> Stock { get; set; }
+    public DbSet<Rate> Rate { get; set; }
 
     #region Required
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -104,6 +104,27 @@ public class ProductDbContext : DbContext
                 .HasColumnName("Id")
                 .ValueGeneratedOnAdd()
                 .HasColumnType("uuid")
+                .IsRequired();
+            
+            productEntityBuilder.Property(p => p.UserId)
+                .HasColumnName("UserId")
+                .ValueGeneratedOnAdd()
+                .HasColumnType("uuid")
+                .IsRequired();
+
+            productEntityBuilder.Property(p => p.Grade)
+                .HasColumnName("Grade")
+                .HasColumnType("integer")
+                .IsRequired();
+
+            productEntityBuilder.Property(p => p.CommentTitle)
+                .HasColumnName("CommentTitle")
+                .HasColumnType("text")
+                .IsRequired();
+
+            productEntityBuilder.Property(p => p.CommentBody)
+                .HasColumnName("CommentBody")
+                .HasColumnType("text")
                 .IsRequired();
         });
         
