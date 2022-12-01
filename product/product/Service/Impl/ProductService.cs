@@ -9,22 +9,27 @@ public class ProductService : IProductService
 {
     private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
+    private readonly IBoothRepository _boothRepository;
 
     public ProductService(
         IMapper mapper,
-        IProductRepository productRepository)
+        IProductRepository productRepository, 
+        IBoothRepository boothRepository)
     {
         _mapper = mapper;
         _productRepository = productRepository;
+        _boothRepository = boothRepository;
     }
 
     public async Task<List<ProductDto>> GetAllProducts()
     {
-        return _mapper.Map<List<ProductDto>>(await _productRepository.GetAllProducts());
+        List<Product> fetchedProducts = await _productRepository.GetAllProducts();
+        return _mapper.Map<List<ProductDto>>(fetchedProducts);
     }
 
     public async Task SaveProduct(CreateProductDto product)
     {
+        //TODO (KKK) Temporary solution for REST validation
         await _productRepository.SaveProduct(_mapper.Map<Product>(product));
     }
 

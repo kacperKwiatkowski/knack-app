@@ -31,6 +31,11 @@ public class BoothRepository : IBoothRepository
         return _productDbContext.SaveChangesAsync();
     }
 
+    public async Task<Booth?> GetBoothById(Guid boothId)
+    {
+        return  await _productDbContext.Booth.FindAsync(boothId);
+    }
+
     public Task SaveBoothWithProduct(Booth booth)
     {
         _productDbContext.AddRangeAsync(booth);

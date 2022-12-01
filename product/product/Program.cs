@@ -1,5 +1,7 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using product.Data;
+using product.Mappers;
 using product.Repository;
 using product.Repository.Impl;
 using product.Service;

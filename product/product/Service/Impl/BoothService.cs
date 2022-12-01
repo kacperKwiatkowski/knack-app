@@ -19,7 +19,6 @@ public class BoothService : IBoothService
         _boothRepository = boothRepository;
     }
 
-
     public async Task<List<BoothDto>> GetAllBooths()
     {
         return _mapper.Map<List<BoothDto>>(await _boothRepository.GetAllBooths());

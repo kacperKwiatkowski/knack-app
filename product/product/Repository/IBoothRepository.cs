@@ -8,4 +8,5 @@ public interface IBoothRepository
     Task<List<Booth>> GetAllBooths();
     Task DeleteBooth(Guid id);
     Task SaveBooth(Booth boothToSave);
+    Task<Booth?> GetBoothById(Guid boothId);
 }

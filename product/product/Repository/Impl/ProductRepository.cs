@@ -15,12 +15,18 @@ public class ProductRepository : IProductRepository
 
     public Task<List<Product>> GetAllProducts()
     {
-        return _productDbContext.Products.ToListAsync();
+        return _productDbContext.Product.ToListAsync();
     }
 
     public Task SaveProduct(Product product)
     {
-        _productDbContext.Products.Add(product);
+        var parentBooth = _productDbContext.Booth
+            .Where(b => b.Id == product.Booth.Id)
+            .Include(b => b.Products)
+            .SingleOrDefault();
+
+        parentBooth.Products.Add(product);
+        
         return _productDbContext.SaveChangesAsync();
     }
 
