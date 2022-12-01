@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using product.Data;
+using product.Dto;
 using product.Models;
 using product.Service;
 using product.Service.Impl;
@@ -24,7 +25,7 @@ public class StockController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Stock stockToSave)
+    public async Task<IActionResult> Post([FromBody] CreateStockDto stockToSave)
     {
         await _stockService.SaveStock(stockToSave);
         return Ok();

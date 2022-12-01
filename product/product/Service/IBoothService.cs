@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using product.Dto;
 using product.Models;
 
 namespace product.Service;
 
 public interface IBoothService
 {
-    Task<List<Booth>> GetAllBooths();
+    Task<List<BoothDto>> GetAllBooths();
     Task DeleteBooth(Guid id);
-    Task SaveBooth(Booth boothToSave);
+    Task SaveBooth(CreateBoothDto boothToSave);
 }

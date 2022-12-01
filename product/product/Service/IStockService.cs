@@ -1,9 +1,10 @@
-﻿using product.Models;
+﻿using product.Dto;
+using product.Models;
 
 namespace product.Service;
 
 public interface IStockService
 {
-    Task<List<Stock>> GetAllStock();
-    Task SaveStock(Stock stockToSave);
+    Task<List<StockDto>> GetAllStock();
+    Task SaveStock(CreateStockDto stockToSave);
 }

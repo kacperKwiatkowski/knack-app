@@ -1,6 +1,6 @@
-﻿namespace product.Models;
+﻿namespace product.Dto;
 
-public class Rate
+public class RateDto
 {
     public Guid Id { get; set; }
 
@@ -12,5 +12,5 @@ public class Rate
     
     public string CommentBody { get; set; }
 
-    public Product Product { get; set; }
+    public Guid ProductId { get; set; }
 }

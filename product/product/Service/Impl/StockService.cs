@@ -1,26 +1,30 @@
-﻿using product.Models;
+﻿using AutoMapper;
+using product.Dto;
+using product.Models;
 using product.Repository;
 
 namespace product.Service.Impl;
 
 public class StockService : IStockService
 {
+    private readonly IMapper _mapper;
     private readonly IStockRepository _stockRepository;
 
     public StockService(
-        IStockRepository stockRepository
-    )
+        IMapper mapper,
+        IStockRepository stockRepository)
     {
+        _mapper = mapper;
         _stockRepository = stockRepository;
     }
 
-    public Task<List<Stock>> GetAllStock()
+    public async Task<List<StockDto>> GetAllStock()
     {
-        return _stockRepository.GetAllStock();
+        return _mapper.Map<List<StockDto>>(await _stockRepository.GetAllStock());
     }
 
-    public Task SaveStock(Stock stockToSave)
+    public Task SaveStock(CreateStockDto stockToSave)
     {
-        return _stockRepository.SaveStock(stockToSave);
+        return _stockRepository.SaveStock(_mapper.Map<Stock>(stockToSave));
     }
 }

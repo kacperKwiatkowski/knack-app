@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using product.Enums;
+﻿using AutoMapper;
+using product.Dto;
 using product.Models;
 using product.Repository;
 
@@ -7,29 +7,32 @@ namespace product.Service.Impl;
 
 public class BoothService : IBoothService
 {
+    private readonly IMapper _mapper;
     private readonly IBoothRepository _boothRepository;
 
     public BoothService(
+        IMapper mapper,
         IBoothRepository boothRepository
     )
     {
+        _mapper = mapper;
         _boothRepository = boothRepository;
     }
 
 
-    public async Task<List<Booth>> GetAllBooths()
+    public async Task<List<BoothDto>> GetAllBooths()
     {
-        return await _boothRepository.GetAllBooths();
+        return _mapper.Map<List<BoothDto>>(await _boothRepository.GetAllBooths());
     }
 
-    public Task DeleteBooth( Guid boothId)
+    public Task DeleteBooth(Guid boothId)
     {
         return _boothRepository.DeleteBooth(boothId);
     }
 
-    public Task SaveBooth(Booth boothToSave)
+    public Task SaveBooth(CreateBoothDto boothToSave)
     {
-        return _boothRepository.SaveBooth(boothToSave);
+        return _boothRepository.SaveBooth(_mapper.Map<Booth>(boothToSave));
     }
 
     // public Task SaveTestEntities()

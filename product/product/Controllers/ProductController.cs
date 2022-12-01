@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using product.Data;
+using product.Dto;
 using product.Models;
 using product.Service;
 
@@ -25,7 +26,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Product product)
+    public async Task<IActionResult> Post([FromBody] CreateProductDto product)
     {
         await _productService.SaveProduct(product);
         return Ok();

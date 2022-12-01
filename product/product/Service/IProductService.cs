@@ -1,10 +1,11 @@
-﻿using product.Models;
+﻿using product.Dto;
+using product.Models;
 
 namespace product.Service;
 
 public interface IProductService
 {
-    Task<List<Product>> GetAllProducts();
-    Task SaveProduct(Product product);
+    Task<List<ProductDto>> GetAllProducts();
+    Task SaveProduct(CreateProductDto product);
     Task DeleteProduct(Guid productId);
 }

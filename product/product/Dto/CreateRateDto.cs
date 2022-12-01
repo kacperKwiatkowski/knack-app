@@ -1,9 +1,7 @@
-﻿namespace product.Models;
+﻿namespace product.Dto;
 
-public class Rate
+public class CreateRateDto
 {
-    public Guid Id { get; set; }
-
     public Guid UserId { get; set; }
     
     public int Grade { get; set; }
@@ -12,5 +10,5 @@ public class Rate
     
     public string CommentBody { get; set; }
 
-    public Product Product { get; set; }
+    public Guid ProductId { get; set; }
 }

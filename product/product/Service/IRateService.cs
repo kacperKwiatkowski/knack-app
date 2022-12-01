@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using product.Dto;
 using product.Models;
 
 namespace product.Service;
 
 public interface IRateService
 {
-    Task<List<Rate>> GetAllRatings();
-    Task SaveRating(Rate rateToSave);
+    Task<List<RateDto>> GetAllRatings();
+    Task SaveRating(CreateRateDto rateToSave);
 }

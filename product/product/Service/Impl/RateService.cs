@@ -1,26 +1,30 @@
-﻿using product.Models;
+﻿using AutoMapper;
+using product.Dto;
+using product.Models;
 using product.Repository;
 
 namespace product.Service.Impl;
 
 public class RateService : IRateService
 {
+    private readonly IMapper _mapper;
     private readonly IRateRepository _rateRepository;
 
     public RateService(
-        IRateRepository rateRepository
-    )
+        IMapper mapper,
+        IRateRepository rateRepository)
     {
+        _mapper = mapper;
         _rateRepository = rateRepository;
     }
 
-    public Task<List<Rate>> GetAllRatings()
+    public async Task<List<RateDto>> GetAllRatings()
     {
-        return _rateRepository.GetAllRating();
+        return _mapper.Map<List<RateDto>>(await _rateRepository.GetAllRating());
     }
 
-    public Task SaveRating(Rate rateToSave)
+    public Task SaveRating(CreateRateDto rateToSave)
     {
-        return _rateRepository.SaveRating(rateToSave);
+        return _rateRepository.SaveRating(_mapper.Map<Rate>(rateToSave));
     }
 }

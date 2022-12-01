@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using product.Dto;
 using product.Models;
 using product.Service;
 
@@ -22,7 +23,7 @@ public class BoothController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Booth boothToSave)
+    public async Task<IActionResult> Post([FromBody] CreateBoothDto boothToSave)
     {
         await _boothService.SaveBooth(boothToSave);
         return Ok();

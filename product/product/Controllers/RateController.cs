@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using product.Data;
+using product.Dto;
 using product.Models;
 using product.Service;
 using product.Service.Impl;
@@ -24,7 +25,7 @@ public class RateController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Rate rateToSave)
+    public async Task<IActionResult> Post([FromBody] CreateRateDto rateToSave)
     {
         await _rateService.SaveRating(rateToSave);
         return Ok();
