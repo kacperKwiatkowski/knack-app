@@ -20,7 +20,12 @@ public class StockRepository : IStockRepository
 
     public Task SaveStock(Stock stockToSave)
     {
-        _productDbContext.Stock.Add(stockToSave);
+        _productDbContext.Product
+            .Where(p => p.Id == stockToSave.Product.Id)
+            .Include(p => p.Stocks)
+            .SingleOrDefault()
+            .Stocks.Add(stockToSave);
+        
         return _productDbContext.SaveChangesAsync();
     }
 }

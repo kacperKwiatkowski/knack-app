@@ -1,4 +1,6 @@
-﻿namespace product.Enums;
+﻿using System.Text.Json.Serialization;
+
+namespace product.Enums;
 
 public enum SizeEnum
 {
@@ -8,5 +10,6 @@ public enum SizeEnum
     Medium,
     Large,
     ExtraLarge,
-    DoubleExtraLarge
+    DoubleExtraLarge,
+    Notapplicable
 }

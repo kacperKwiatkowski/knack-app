@@ -1,4 +1,6 @@
-﻿namespace product.Enums;
+﻿using System.Text.Json.Serialization;
+
+namespace product.Enums;
 
 public enum CategoryEnum
 {

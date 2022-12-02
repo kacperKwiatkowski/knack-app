@@ -1,5 +1,8 @@
-﻿namespace product.Enums;
+﻿using System.Text.Json.Serialization;
 
+namespace product.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum DepartmentEnum
 {
     Pottery,

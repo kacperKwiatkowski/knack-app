@@ -20,7 +20,12 @@ public class RateRepository : IRateRepository
 
     public Task SaveRating(Rate rateToSave)
     {
-        _productDbContext.Rate.Add(rateToSave);
+        _productDbContext.Product
+            .Where(p => p.Id == rateToSave.Product.Id)
+            .Include(p => p.Rates)
+            .SingleOrDefault()
+            .Rates.Add(rateToSave);
+        
         return _productDbContext.SaveChangesAsync();
     }
 }
