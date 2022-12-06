@@ -8,6 +8,8 @@ using product.Repository;
 using product.Repository.Impl;
 using product.Service;
 using product.Service.Impl;
+using product.Validators;
+using product.Validators.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,7 @@ builder.Services.AddDbContext<ProductDbContext>(option =>
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 builder.Services.AddScoped<IBoothService, BoothService>();
 builder.Services.AddScoped<IBoothRepository, BoothRepository>();

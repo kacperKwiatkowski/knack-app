@@ -35,4 +35,9 @@ public class ProductRepository : IProductRepository
         _productDbContext.Remove(new Product() { Id = productId });
         return _productDbContext.SaveChangesAsync();
     }
+
+    public bool CheckIfProductExists(Guid productId)
+    {
+        return _productDbContext.Product.Any(p => p.Id == productId);
+    }
 }

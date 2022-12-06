@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using product.Data;
 using product.Dto;
-using product.Models;
 using product.Service;
 
 namespace product.Controllers;
@@ -32,7 +30,7 @@ public class ProductController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("{productId}")] 
+    [HttpDelete("{productId:guid}")] 
     public async Task<IActionResult> Delete(Guid productId)
     {
         await _productService.DeleteProduct(productId);
