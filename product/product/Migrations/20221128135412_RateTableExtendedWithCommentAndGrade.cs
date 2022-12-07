@@ -13,7 +13,7 @@ namespace product.Migrations
         {
             migrationBuilder.AddColumn<string>(
                 name: "CommentBody",
-                schema: "product",
+                schema: "Product",
                 table: "Rate",
                 type: "text",
                 nullable: false,
@@ -21,7 +21,7 @@ namespace product.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "CommentTitle",
-                schema: "product",
+                schema: "Product",
                 table: "Rate",
                 type: "text",
                 nullable: false,
@@ -29,7 +29,7 @@ namespace product.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "Grade",
-                schema: "product",
+                schema: "Product",
                 table: "Rate",
                 type: "integer",
                 nullable: false,
@@ -37,7 +37,7 @@ namespace product.Migrations
 
             migrationBuilder.AddColumn<Guid>(
                 name: "UserId",
-                schema: "product",
+                schema: "Product",
                 table: "Rate",
                 type: "uuid",
                 nullable: false,
@@ -49,22 +49,22 @@ namespace product.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "CommentBody",
-                schema: "product",
+                schema: "Product",
                 table: "Rate");
 
             migrationBuilder.DropColumn(
                 name: "CommentTitle",
-                schema: "product",
+                schema: "Product",
                 table: "Rate");
 
             migrationBuilder.DropColumn(
                 name: "Grade",
-                schema: "product",
+                schema: "Product",
                 table: "Rate");
 
             migrationBuilder.DropColumn(
                 name: "UserId",
-                schema: "product",
+                schema: "Product",
                 table: "Rate");
         }
     }

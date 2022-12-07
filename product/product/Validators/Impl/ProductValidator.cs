@@ -19,7 +19,7 @@ public class ProductValidator : IProductValidator
     {
         if (!_productRepository.CheckIfProductExists(id))
         {
-            throw new ItemNotFoundException("Following product id doesn't exists");
+            throw new ItemNotFoundException("Following Product id doesn't exists");
         }
     }
 }

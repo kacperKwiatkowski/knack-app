@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "57N8IyyhiKXEm04Bx94ec51dPhn5o/0dQPuX0WFwpg+sJ8dZLp0Rzg8EgfzbsIGsBYcVKaUWvhoGZHkEpa1zDQ==",
+  "dgSpecHash": "M+L9s6UptWravUVbscWSC3owas+VBZeS1ZVpCDlKftAtcpo6vwnwc/ndW3kDuh6tmvhLrrXrAfcyLvXOrwEBYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kacper\\Projects\\knackAppWrapper\\knack-app\\product\\product\\product.csproj",
+  "projectFilePath": "C:\\Users\\Kacper\\Projects\\knackAppWrapper\\knack-app\\product\\Product\\Product.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kacper\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\Kacper\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

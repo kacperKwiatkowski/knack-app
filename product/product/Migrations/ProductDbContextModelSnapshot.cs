@@ -17,13 +17,13 @@ namespace product.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("product")
+                .HasDefaultSchema("Product")
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("product.Models.Booth", b =>
+            modelBuilder.Entity("Product.Models.Booth", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,10 +42,10 @@ namespace product.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Booth", "product");
+                    b.ToTable("Booth", "Product");
                 });
 
-            modelBuilder.Entity("product.Models.Product", b =>
+            modelBuilder.Entity("Product.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,10 +69,10 @@ namespace product.Migrations
 
                     b.HasIndex("BoothId");
 
-                    b.ToTable("Product", "product");
+                    b.ToTable("Product", "Product");
                 });
 
-            modelBuilder.Entity("product.Models.Rate", b =>
+            modelBuilder.Entity("Product.Models.Rate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,10 +105,10 @@ namespace product.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Rate", "product");
+                    b.ToTable("Rate", "Product");
                 });
 
-            modelBuilder.Entity("product.Models.Stock", b =>
+            modelBuilder.Entity("Product.Models.Stock", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,13 +150,13 @@ namespace product.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Stock", "product");
+                    b.ToTable("Stock", "Product");
                 });
 
-            modelBuilder.Entity("product.Models.Product", b =>
+            modelBuilder.Entity("Product.Models.Product", b =>
                 {
-                    b.HasOne("product.Models.Booth", "Booth")
-                        .WithMany("Products")
+                    b.HasOne("Product.Models.Booth", "Booth")
+                        .WithMany("Product")
                         .HasForeignKey("BoothId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -164,9 +164,9 @@ namespace product.Migrations
                     b.Navigation("Booth");
                 });
 
-            modelBuilder.Entity("product.Models.Rate", b =>
+            modelBuilder.Entity("Product.Models.Rate", b =>
                 {
-                    b.HasOne("product.Models.Product", "Product")
+                    b.HasOne("Product.Models.Product", "Product")
                         .WithMany("Rates")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -175,9 +175,9 @@ namespace product.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("product.Models.Stock", b =>
+            modelBuilder.Entity("Product.Models.Stock", b =>
                 {
-                    b.HasOne("product.Models.Product", "Product")
+                    b.HasOne("Product.Models.Product", "Product")
                         .WithMany("Stocks")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -186,12 +186,12 @@ namespace product.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("product.Models.Booth", b =>
+            modelBuilder.Entity("Product.Models.Booth", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("product.Models.Product", b =>
+            modelBuilder.Entity("Product.Models.Product", b =>
                 {
                     b.Navigation("Rates");
 

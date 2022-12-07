@@ -46,16 +46,16 @@ public class BoothService : IBoothService
     //
     //     Rate rate = new Rate();
     //
-    //     Product product = new Product();
-    //     product.Title = "Iron chain-mail";
-    //     product.Description = "Hand crafted hain-mail for a costume.";
-    //     product.Stocks = new List<Stock>() { stock };
-    //     product.Rates = new List<Rate>() { rate };
+    //     Product Product = new Product();
+    //     Product.Title = "Iron chain-mail";
+    //     Product.Description = "Hand crafted hain-mail for a costume.";
+    //     Product.Stocks = new List<Stock>() { stock };
+    //     Product.Rates = new List<Rate>() { rate };
     //
     //     Booth booth = new Booth();
     //     booth.Title = "Metallica";
     //     booth.Description = "Metal craftsmanship";
-    //     booth.Products = new List<Product>() { product };
+    //     booth.Product = new List<Product>() { Product };
     //
     //     return _boothRepository.SaveBoothWithProduct(booth);
     // }

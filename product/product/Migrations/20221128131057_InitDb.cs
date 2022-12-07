@@ -12,11 +12,11 @@ namespace product.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "product");
+                name: "Product");
 
             migrationBuilder.CreateTable(
                 name: "Booth",
-                schema: "product",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -30,7 +30,7 @@ namespace product.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Product",
-                schema: "product",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -44,7 +44,7 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Product_Booth_BoothId",
                         column: x => x.BoothId,
-                        principalSchema: "product",
+                        principalSchema: "Product",
                         principalTable: "Booth",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -52,7 +52,7 @@ namespace product.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Rate",
-                schema: "product",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -64,7 +64,7 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Rate_Product_ProductId",
                         column: x => x.ProductId,
-                        principalSchema: "product",
+                        principalSchema: "Product",
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -72,7 +72,7 @@ namespace product.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Stock",
-                schema: "product",
+                schema: "Product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -90,7 +90,7 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Stock_Product_ProductId",
                         column: x => x.ProductId,
-                        principalSchema: "product",
+                        principalSchema: "Product",
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -98,19 +98,19 @@ namespace product.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_BoothId",
-                schema: "product",
+                schema: "Product",
                 table: "Product",
                 column: "BoothId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rate_ProductId",
-                schema: "product",
+                schema: "Product",
                 table: "Rate",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_ProductId",
-                schema: "product",
+                schema: "Product",
                 table: "Stock",
                 column: "ProductId");
         }
@@ -120,19 +120,19 @@ namespace product.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Rate",
-                schema: "product");
+                schema: "Product");
 
             migrationBuilder.DropTable(
                 name: "Stock",
-                schema: "product");
+                schema: "Product");
 
             migrationBuilder.DropTable(
                 name: "Product",
-                schema: "product");
+                schema: "Product");
 
             migrationBuilder.DropTable(
                 name: "Booth",
-                schema: "product");
+                schema: "Product");
         }
     }
 }

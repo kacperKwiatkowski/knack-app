@@ -10,7 +10,7 @@ public class CustomExceptionFilter : ExceptionFilterAttribute
 {
     public override void OnException(ExceptionContext context)
     {
-        string? apiError = null;
+        string apiError = null;
         
         if (context.Exception is ItemNotFoundException)
         {
