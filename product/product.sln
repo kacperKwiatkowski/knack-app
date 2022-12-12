@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product", "Product\Product.csproj", "{2CBC7329-36A9-4B10-B97B-620AF6C8EDF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Server", "Product.Server\Product.Server.csproj", "{2CBC7329-36A9-4B10-B97B-620AF6C8EDF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.UnitTests", "Product.UnitTests\Product.UnitTests.csproj", "{D85E2D34-BB45-4ED7-952B-C74CA5D73F33}"
 EndProject
