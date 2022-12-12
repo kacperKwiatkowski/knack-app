@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Moq;
 using product.Controllers;
 using product.Dto;

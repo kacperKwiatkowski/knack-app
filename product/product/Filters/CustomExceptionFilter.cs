@@ -14,7 +14,7 @@ public class CustomExceptionFilter : ExceptionFilterAttribute
         
         if (context.Exception is ItemNotFoundException)
         {
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.Ambiguous;
             apiError = context.Exception.Message;
         }
         
