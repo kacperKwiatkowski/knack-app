@@ -8,7 +8,7 @@ using product.Data;
 
 namespace Product.IntegrationTests.Config;
 
-public class TestingWebApplicationFactory<Program> : WebApplicationFactory<Program> where Program : class
+public class TestingWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
     
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -26,16 +26,19 @@ public class TestingWebApplicationFactory<Program> : WebApplicationFactory<Progr
             });
 
             var sp = services.BuildServiceProvider();
-            
+
             using (var scope = sp.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<ProductDbContext>();
-                var logger = scopedServices
-                    .GetRequiredService<ILogger<TestingWebApplicationFactory<Program>>>();
-
+                var logger = scopedServices.GetRequiredService<ILogger<TestingWebApplicationFactory<TProgram>>>();
+                
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
+                
+                DataSeedFixture.SeedBooths(db);
+                DataSeedFixture.SeedProducts(db);
+
             }
         });
     }
