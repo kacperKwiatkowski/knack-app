@@ -4,6 +4,6 @@ namespace product.Repository;
 
 public interface IStockRepository
 {
-    Task<List<Stock>> GetAllStock();
-    Task SaveStock(Stock stockToSave);
+    Task<List<StockEntity>> GetAllStock();
+    Task SaveStock(StockEntity stockToSave);
 }

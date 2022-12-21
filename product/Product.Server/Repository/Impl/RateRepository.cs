@@ -13,12 +13,12 @@ public class RateRepository : IRateRepository
         _productDbContext = productDbContext;
     }
 
-    public Task<List<Rate>> GetAllRating()
+    public Task<List<RateEntity>> GetAllRating()
     {
         return _productDbContext.Rate.ToListAsync();
     }
 
-    public Task SaveRating(Rate rateToSave)
+    public Task SaveRating(RateEntity rateToSave)
     {
         _productDbContext.Product
             .Where(p => p.Id == rateToSave.Product.Id)

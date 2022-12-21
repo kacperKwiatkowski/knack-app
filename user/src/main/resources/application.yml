@@ -14,12 +14,12 @@ spring:
       ddl-auto: create-drop
 
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/user
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/knackDb
     username: postgres_username
     password: postgres_password
     driverClassName: org.postgresql.Driver
     hikari:
-      schema: user_service
+      schema: user
 
   mvc:
     pathmatch:

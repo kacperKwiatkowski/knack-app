@@ -13,12 +13,12 @@ public class ProductRepository : IProductRepository
         _productDbContext = productDbContext;
     }
 
-    public Task<List<Product>> GetAllProducts()
+    public Task<List<ProductEntity>> GetAllProducts()
     {
         return _productDbContext.Product.ToListAsync();
     }
 
-    public Task SaveProduct(Product product)
+    public Task SaveProduct(ProductEntity product)
     {
         var parentBooth = _productDbContext.Booth
             .Where(b => b.Id == product.Booth.Id)
@@ -32,7 +32,7 @@ public class ProductRepository : IProductRepository
 
     public Task DeleteProduct(Guid productId)
     {
-        _productDbContext.Remove(new Product() { Id = productId });
+        _productDbContext.Remove(new ProductEntity() { Id = productId });
         return _productDbContext.SaveChangesAsync();
     }
 

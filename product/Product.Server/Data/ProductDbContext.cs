@@ -9,10 +9,10 @@ public class ProductDbContext : DbContext
     {
     }
 
-    public DbSet<Product> Product { get; set; }
-    public DbSet<Booth> Booth { get; set; }
-    public DbSet<Stock> Stock { get; set; }
-    public DbSet<Rate> Rate { get; set; }
+    public DbSet<ProductEntity> Product { get; set; }
+    public DbSet<BoothEntity> Booth { get; set; }
+    public DbSet<StockEntity> Stock { get; set; }
+    public DbSet<RateEntity> Rate { get; set; }
 
     #region Required
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ public class ProductDbContext : DbContext
         //Configure default schema
         modelBuilder.HasDefaultSchema("product");
 
-        modelBuilder.Entity<Booth>(productEntityBuilder =>
+        modelBuilder.Entity<BoothEntity>(productEntityBuilder =>
         {
             productEntityBuilder.Property(p => p.Id)
                 .HasColumnName("Id")
@@ -39,7 +39,7 @@ public class ProductDbContext : DbContext
                 .IsRequired();
         });
 
-        modelBuilder.Entity<Product>(productEntityBuilder =>
+        modelBuilder.Entity<ProductEntity>(productEntityBuilder =>
             {
                 productEntityBuilder.Property(p => p.Id)
                     .HasColumnName("Id")
@@ -59,7 +59,7 @@ public class ProductDbContext : DbContext
             }
         );
         
-        modelBuilder.Entity<Stock>(productEntityBuilder =>
+        modelBuilder.Entity<StockEntity>(productEntityBuilder =>
         {
             productEntityBuilder.Property(p => p.Id)
                 .HasColumnName("Id")
@@ -98,7 +98,7 @@ public class ProductDbContext : DbContext
                 .IsRequired();
         });
         
-        modelBuilder.Entity<Rate>(productEntityBuilder =>
+        modelBuilder.Entity<RateEntity>(productEntityBuilder =>
         {
             productEntityBuilder.Property(p => p.Id)
                 .HasColumnName("Id")
@@ -128,17 +128,17 @@ public class ProductDbContext : DbContext
                 .IsRequired();
         });
         
-        modelBuilder.Entity<Booth>()
+        modelBuilder.Entity<BoothEntity>()
             .HasMany(b => b.Products)
             .WithOne(p => p.Booth)
             .IsRequired();
         
-        modelBuilder.Entity<Product>()
+        modelBuilder.Entity<ProductEntity>()
             .HasMany(p => p.Stocks)
             .WithOne(s => s.Product)
             .IsRequired();
         
-        modelBuilder.Entity<Product>()
+        modelBuilder.Entity<ProductEntity>()
             .HasMany(p => p.Rates)
             .WithOne(r => r.Product)
             .IsRequired();

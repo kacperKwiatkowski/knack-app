@@ -5,16 +5,51 @@ volumes:
     driver: local
 
 services:
-  postgres:
+  postgres-knack:
     container_name: postgres-knack
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
     environment:
       POSTGRES_DB: knackDb
       POSTGRES_USER: postgres_username
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_PORT: 5432
+
+  pgadmin-knack:
+    image: dpage/pgadmin4
+    container_name: pgadmin-knack
     ports:
-      - "5432:5432"
+      - "5050:80"
     restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@root.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    depends_on:
+      - postgres-knack
+
+  mongo-knack:
+    image: mongo
+    container_name: mongo-knack
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo_username
+      MONGO_INITDB_ROOT_PASSWORD: mongo_password
+
+  mongo-express-knack:
+    image: mongo-express
+    container_name: mongo-express-knack
+    ports:
+      - "8081:8081"
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root@root.com
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://mongo_username:mongo_password@mongo-knack:27017/
+    depends_on:
+      - mongo-knack

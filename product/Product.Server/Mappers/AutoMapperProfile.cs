@@ -10,26 +10,26 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
 
-        CreateMap<CreateBoothDto, Booth>();
-        CreateMap<BoothDto, Booth>().ReverseMap();
+        CreateMap<CreateBoothDto, BoothEntity>();
+        CreateMap<BoothDto, BoothEntity>().ReverseMap();
 
-        CreateMap<CreateProductDto, Product>()
+        CreateMap<CreateProductDto, ProductEntity>()
             .ForMember(
                 dest => dest.Booth, 
-                opt => opt.MapFrom(src => new Booth(){Id = src.BoothId}));;
-        CreateMap<ProductDto, Product>().ReverseMap();
+                opt => opt.MapFrom(src => new BoothEntity(){Id = src.BoothId}));;
+        CreateMap<ProductDto, ProductEntity>().ReverseMap();
 
-        CreateMap<CreateRateDto, Rate>()            
+        CreateMap<CreateRateDto, RateEntity>()            
             .ForMember(
             dest => dest.Product, 
-            opt => opt.MapFrom(src => new Product(){Id = src.ProductId}));
-        CreateMap<RateDto, Rate>().ReverseMap();
+            opt => opt.MapFrom(src => new ProductEntity(){Id = src.ProductId}));
+        CreateMap<RateDto, RateEntity>().ReverseMap();
 
-        CreateMap<CreateStockDto, Stock>()
+        CreateMap<CreateStockDto, StockEntity>()
             .ForMember(
                 dest => dest.Product, 
-                opt => opt.MapFrom(src => new Product(){Id = src.ProductId}));
-        CreateMap<StockDto, Stock>();
-        CreateMap<Stock, StockDto>();
+                opt => opt.MapFrom(src => new ProductEntity(){Id = src.ProductId}));
+        CreateMap<StockDto, StockEntity>();
+        CreateMap<StockEntity, StockDto>();
     }
 }

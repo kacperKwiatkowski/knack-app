@@ -31,7 +31,7 @@ public class BoothService : IBoothService
 
     public Task SaveBooth(CreateBoothDto boothToSave)
     {
-        return _boothRepository.SaveBooth(_mapper.Map<Booth>(boothToSave));
+        return _boothRepository.SaveBooth(_mapper.Map<BoothEntity>(boothToSave));
     }
 
     // public Task SaveTestEntities()

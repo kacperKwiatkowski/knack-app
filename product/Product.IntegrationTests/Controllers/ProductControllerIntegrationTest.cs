@@ -26,7 +26,7 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     public async Task Test01_PostUser_CreatesUser()
     {
         // Arrange
-        List<product.Models.Product> productsBeforeOperation = _context.Product.ToList();
+        List<product.Models.ProductEntity> productsBeforeOperation = _context.Product.ToList();
         CreateProductDto productDto = new CreateProductDto()
         {
             BoothId = _context.Booth.First().Id,
@@ -38,7 +38,7 @@ public class ProductControllerIntegrationTest : BaseTestFixture
         var response = await _client.PostAsync("/product", new StringContent(JsonConvert.SerializeObject(productDto), Encoding.Default, "application/json"));
         
         // Assert
-        List<product.Models.Product> productsAfterOperation = _context.Product.ToList();
+        List<product.Models.ProductEntity> productsAfterOperation = _context.Product.ToList();
 
         Assert.True(response.StatusCode == HttpStatusCode.OK);
         Assert.NotEqual(productsAfterOperation, productsBeforeOperation);

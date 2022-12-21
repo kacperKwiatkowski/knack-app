@@ -2,7 +2,7 @@
 
 namespace product.Models;
 
-public class Stock
+public class StockEntity
 {
     public Guid Id { get; set; }
     
@@ -18,5 +18,5 @@ public class Stock
     
     public int Quantity { get; set; }
     
-    public Product Product { get; set; }
+    public ProductEntity Product { get; set; }
 }

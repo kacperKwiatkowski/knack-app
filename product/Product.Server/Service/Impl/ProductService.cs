@@ -24,14 +24,14 @@ public class ProductService : IProductService
 
     public async Task<List<ProductDto>> GetAllProducts()
     {
-        List<Product> fetchedProducts = await _productRepository.GetAllProducts();
+        List<ProductEntity> fetchedProducts = await _productRepository.GetAllProducts();
         return _mapper.Map<List<ProductDto>>(fetchedProducts);
     }
 
     public async Task SaveProduct(CreateProductDto product)
     {
         //TODO (KKK) Temporary solution for REST validation
-        await _productRepository.SaveProduct(_mapper.Map<Product>(product));
+        await _productRepository.SaveProduct(_mapper.Map<ProductEntity>(product));
     }
 
     public Task DeleteProduct(Guid productId)

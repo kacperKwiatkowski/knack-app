@@ -25,6 +25,6 @@ public class StockService : IStockService
 
     public Task SaveStock(CreateStockDto stockToSave)
     {
-        return _stockRepository.SaveStock(_mapper.Map<Stock>(stockToSave));
+        return _stockRepository.SaveStock(_mapper.Map<StockEntity>(stockToSave));
     }
 }

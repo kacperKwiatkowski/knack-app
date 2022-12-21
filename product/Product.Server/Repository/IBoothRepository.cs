@@ -4,9 +4,9 @@ namespace product.Repository;
 
 public interface IBoothRepository
 {
-    Task SaveBoothWithProduct(Booth booth);
-    Task<List<Booth>> GetAllBooths();
+    Task SaveBoothWithProduct(BoothEntity booth);
+    Task<List<BoothEntity>> GetAllBooths();
     Task DeleteBooth(Guid id);
-    Task SaveBooth(Booth boothToSave);
-    Task<Booth?> GetBoothById(Guid boothId);
+    Task SaveBooth(BoothEntity boothToSave);
+    Task<BoothEntity?> GetBoothById(Guid boothId);
 }

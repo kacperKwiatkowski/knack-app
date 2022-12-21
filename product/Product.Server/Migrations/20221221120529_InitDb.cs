@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace product.Migrations
+namespace Product.Migrations
 {
     /// <inheritdoc />
     public partial class InitDb : Migration
@@ -12,11 +12,11 @@ namespace product.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "Product.Server");
+                name: "product");
 
             migrationBuilder.CreateTable(
                 name: "Booth",
-                schema: "Product.Server",
+                schema: "product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -29,8 +29,8 @@ namespace product.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product.Server",
-                schema: "Product.Server",
+                name: "Product",
+                schema: "product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -44,7 +44,7 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Product_Booth_BoothId",
                         column: x => x.BoothId,
-                        principalSchema: "Product.Server",
+                        principalSchema: "product",
                         principalTable: "Booth",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -52,10 +52,14 @@ namespace product.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Rate",
-                schema: "Product.Server",
+                schema: "product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Grade = table.Column<int>(type: "integer", nullable: false),
+                    CommentTitle = table.Column<string>(type: "text", nullable: false),
+                    CommentBody = table.Column<string>(type: "text", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -64,15 +68,15 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Rate_Product_ProductId",
                         column: x => x.ProductId,
-                        principalSchema: "Product.Server",
-                        principalTable: "Product.Server",
+                        principalSchema: "product",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Stock",
-                schema: "Product.Server",
+                schema: "product",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -90,27 +94,27 @@ namespace product.Migrations
                     table.ForeignKey(
                         name: "FK_Stock_Product_ProductId",
                         column: x => x.ProductId,
-                        principalSchema: "Product.Server",
-                        principalTable: "Product.Server",
+                        principalSchema: "product",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_BoothId",
-                schema: "Product.Server",
-                table: "Product.Server",
+                schema: "product",
+                table: "Product",
                 column: "BoothId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rate_ProductId",
-                schema: "Product.Server",
+                schema: "product",
                 table: "Rate",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_ProductId",
-                schema: "Product.Server",
+                schema: "product",
                 table: "Stock",
                 column: "ProductId");
         }
@@ -120,19 +124,19 @@ namespace product.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Rate",
-                schema: "Product.Server");
+                schema: "product");
 
             migrationBuilder.DropTable(
                 name: "Stock",
-                schema: "Product.Server");
+                schema: "product");
 
             migrationBuilder.DropTable(
-                name: "Product.Server",
-                schema: "Product.Server");
+                name: "Product",
+                schema: "product");
 
             migrationBuilder.DropTable(
                 name: "Booth",
-                schema: "Product.Server");
+                schema: "product");
         }
     }
 }

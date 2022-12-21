@@ -13,12 +13,12 @@ public class StockRepository : IStockRepository
         _productDbContext = productDbContext;
     }
 
-    public Task<List<Stock>> GetAllStock()
+    public Task<List<StockEntity>> GetAllStock()
     {
         return _productDbContext.Stock.ToListAsync();
     }
 
-    public Task SaveStock(Stock stockToSave)
+    public Task SaveStock(StockEntity stockToSave)
     {
         _productDbContext.Product
             .Where(p => p.Id == stockToSave.Product.Id)

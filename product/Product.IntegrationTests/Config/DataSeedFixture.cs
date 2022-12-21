@@ -11,7 +11,7 @@ public static class DataSeedFixture
 {
     public static void SeedBooths(ProductDbContext db)
     {
-        db.Booth.Add(new Booth()
+        db.Booth.Add(new BoothEntity()
             {
                 Title = "seedBooth",
                 Description = "seedBooth"
@@ -23,14 +23,14 @@ public static class DataSeedFixture
 
     public static void SeedProducts(ProductDbContext db)
     {
-        List<Booth> all = db.Booth.ToList();
+        List<BoothEntity> all = db.Booth.ToList();
 
         var parentBooth = db.Booth
             .Where(b => b.Id == db.Booth.First().Id)
             .Include(b => b.Products)
             .SingleOrDefault();
 
-        var productToSave = new product.Models.Product()
+        var productToSave = new product.Models.ProductEntity()
         {
             Title = "seedProduct",
             Description = "seedProduct"

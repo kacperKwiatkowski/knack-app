@@ -13,7 +13,7 @@ public class BoothRepository : IBoothRepository
         _productDbContext = productDbContext;
     }
     
-    public async Task<List<Booth>> GetAllBooths()
+    public async Task<List<BoothEntity>> GetAllBooths()
     {
         return await _productDbContext.Booth
             .ToListAsync();
@@ -21,22 +21,22 @@ public class BoothRepository : IBoothRepository
 
     public Task DeleteBooth(Guid boothId)
     {
-        _productDbContext.Booth.Remove(new Booth() { Id = boothId });
+        _productDbContext.Booth.Remove(new BoothEntity() { Id = boothId });
          return _productDbContext.SaveChangesAsync();
     }
 
-    public Task SaveBooth(Booth boothToSave)
+    public Task SaveBooth(BoothEntity boothToSave)
     {
         _productDbContext.Booth.Add(boothToSave);
         return _productDbContext.SaveChangesAsync();
     }
 
-    public async Task<Booth?> GetBoothById(Guid boothId)
+    public async Task<BoothEntity?> GetBoothById(Guid boothId)
     {
         return  await _productDbContext.Booth.FindAsync(boothId);
     }
 
-    public Task SaveBoothWithProduct(Booth booth)
+    public Task SaveBoothWithProduct(BoothEntity booth)
     {
         _productDbContext.AddRangeAsync(booth);
         return _productDbContext.SaveChangesAsync();

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace product.Models;
 
-public class Booth
+public class BoothEntity
 {
     public Guid Id { get; set; }
     
@@ -11,5 +11,5 @@ public class Booth
     
     public string Description { get; set; }
 
-    public ICollection <Product> Products { get; set; }
+    public ICollection <ProductEntity> Products { get; set; }
 }

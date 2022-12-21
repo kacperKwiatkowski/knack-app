@@ -25,6 +25,6 @@ public class RateService : IRateService
 
     public Task SaveRating(CreateRateDto rateToSave)
     {
-        return _rateRepository.SaveRating(_mapper.Map<Rate>(rateToSave));
+        return _rateRepository.SaveRating(_mapper.Map<RateEntity>(rateToSave));
     }
 }

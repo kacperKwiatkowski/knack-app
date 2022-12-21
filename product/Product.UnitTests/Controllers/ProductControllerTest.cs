@@ -9,7 +9,7 @@ using Assert = Xunit.Assert;
 
 namespace Product.UnitTests.Controllers;
 
-//[TestFixture]
+[TestFixture]
 public class ProductControllerTest
 {
     private readonly ProductController _productController;
