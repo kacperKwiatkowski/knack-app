@@ -26,14 +26,14 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateProductDto product)
+    public async Task<IActionResult> PostProduct([FromBody] CreateProductDto product)
     {
         await _productService.SaveProduct(product);
         return Ok();
     }
 
     [HttpDelete("{productId:guid}")] 
-    public async Task<IActionResult> Delete(Guid productId)
+    public async Task<IActionResult> DeleteProduct(Guid productId)
     {
         await _productService.DeleteProduct(productId);
         return Ok();
