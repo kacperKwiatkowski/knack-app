@@ -16,11 +16,11 @@ public class ProductObjectProvider
         };
     }
 
-    public static CreateProductDto ProvideCreateProductDto(Guid id)
+    public static CreateProductDto ProvideCreateProductDto(Guid boothId)
     {
         return new CreateProductDto()
         {
-            BoothId = id,
+            BoothId = boothId,
             Description = Guid.NewGuid().ToString().Substring(0, 20),
             Title = Guid.NewGuid().ToString().Substring(0, 20)
         };

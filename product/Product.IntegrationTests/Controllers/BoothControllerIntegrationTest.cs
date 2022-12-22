@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,7 +21,7 @@ public class BoothControllerIntegrationTest : BaseTestFixture
     }
 
     [Fact]
-    public async Task PostBooth_CreatesBooth()
+    public async Task PostBooth_CorrectDto_CreatesBooth()
     {
         // Arrange
         List<BoothEntity> boothsBeforeOperation = _context.Booth.ToList();
@@ -38,7 +39,22 @@ public class BoothControllerIntegrationTest : BaseTestFixture
     }
 
     [Fact]
-    public async Task GetBooth_ReturnsAllBooths()
+    public async Task PostBooth_InvalidDto_FailsCreatingBooth()
+    {
+        // Arrange
+        CreateBoothDto invalidBooth = BoothObjectProvider.ProvideCreateBoothDto();
+        invalidBooth.Title = Guid.NewGuid().ToString();
+        invalidBooth.Description = Guid.NewGuid().ToString();
+
+        // Act
+        var response = await _client.PostAsync("/booth", new StringContent(JsonConvert.SerializeObject(invalidBooth), Encoding.Default, "application/json"));
+        
+        // Assert
+        Assert.True(response.StatusCode == HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task GetBooth_FilledDatabse_ReturnsAllBooths()
     {
         // Arrange
         List<BoothEntity> allEntities = _context.Booth.ToList();
@@ -53,7 +69,7 @@ public class BoothControllerIntegrationTest : BaseTestFixture
     }
 
     [Fact]
-    public async Task DeleteBooth_RemovesBoothById()
+    public async Task DeleteBooth_ExistingBoothId_RemovesBoothById()
     {
         // Arrange
         BoothEntity boothToDelete = _context.Booth.Add(BoothObjectProvider.ProvideBoothEntity()).Entity;
@@ -66,5 +82,21 @@ public class BoothControllerIntegrationTest : BaseTestFixture
         // Assert
         Assert.True(response.StatusCode == HttpStatusCode.OK);
         Assert.Null(_context.Booth.SingleOrDefault(booth => booth.Id == boothToDelete.Id));
+    }    
+    
+    [Fact]
+    public async Task DeleteBooth_NonExistingBoothId_ReturnsFailureMessageAndStatus()
+    {
+        // Arrange
+        var nonExistingProductId = Guid.NewGuid();
+
+        // Act
+        var response = await _client.DeleteAsync("/booth/" + nonExistingProductId);
+        
+        var a = response.Content.ReadAsStringAsync().Result;
+
+        // Assert
+        Assert.True(response.StatusCode == HttpStatusCode.NotFound);
+        Assert.Contains((nonExistingProductId.ToString()), response.Content.ReadAsStringAsync().Result);
     }
 }

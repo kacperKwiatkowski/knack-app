@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Booth.IntegrationTests.Utils;
 using Newtonsoft.Json;
 using product.Dto;
 using Product.IntegrationTests.Config;
@@ -23,7 +22,7 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     }
     
     [Fact]
-    public async Task PostProduct_CreatesProduct()
+    public async Task PostProduct_CorrectDto_CreatesProduct()
     {
         // Arrange
         List<ProductEntity> productsBeforeOperation = _context.Product.ToList();
@@ -41,7 +40,22 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     }
     
     [Fact]
-    public async Task GetAllProducts_ReturnsAllProducts()
+    public async Task PostProduct_InvalidDto_FailsCreatingProduct()
+    {
+        // Arrange
+        CreateProductDto invalidProduct = ProductObjectProvider.ProvideCreateProductDto(_context.Booth.First().Id);
+        invalidProduct.Title = Guid.NewGuid().ToString();
+        invalidProduct.Description = Guid.NewGuid().ToString();
+
+        // Act
+        var response = await _client.PostAsync("/product", new StringContent(JsonConvert.SerializeObject(invalidProduct), Encoding.Default, "application/json"));
+        
+        // Assert
+        Assert.True(response.StatusCode == HttpStatusCode.BadRequest);
+    }
+    
+    [Fact]
+    public async Task GetAllProducts_FilledDatabase_ReturnsAllProducts()
     {
         // Arrange
         List<ProductEntity> allEntities = _context.Product.ToList();
@@ -56,7 +70,7 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     }    
     
     [Fact]
-    public async Task DeleteProduct_RemovesProduct()
+    public async Task DeleteProduct_ExistingProductId_RemovesProduct()
     {
         // Arrange
         ProductEntity productToDelete = _context.Product.Add(ProductObjectProvider.ProvideProductEntity()).Entity;
@@ -68,5 +82,21 @@ public class ProductControllerIntegrationTest : BaseTestFixture
         // Assert
         Assert.True(response.StatusCode == HttpStatusCode.OK);
         Assert.Null(_context.Product.SingleOrDefault(product => product.Id == productToDelete.Id));
+    }
+    
+    [Fact]
+    public async Task DeleteProduct_NonExistingProductId_ReturnsFailureMessageAndStatus()
+    {
+        // Arrange
+        var nonExistingProductId = Guid.NewGuid();
+
+        // Act
+        var response = await _client.DeleteAsync("/product/" + nonExistingProductId);
+
+        var a = response.Content.ReadAsStringAsync().Result;
+        
+        // Assert
+        Assert.True(response.StatusCode == HttpStatusCode.NotFound);
+        Assert.Contains(nonExistingProductId.ToString(), response.Content.ReadAsStringAsync().Result);
     }
 }
