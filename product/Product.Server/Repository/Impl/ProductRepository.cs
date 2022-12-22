@@ -32,7 +32,7 @@ public class ProductRepository : IProductRepository
 
     public Task DeleteProduct(Guid productId)
     {
-        _productDbContext.Remove(new ProductEntity() { Id = productId });
+        _productDbContext.Product.Remove(new ProductEntity() { Id = productId });
         return _productDbContext.SaveChangesAsync();
     }
 

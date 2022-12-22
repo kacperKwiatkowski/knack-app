@@ -42,5 +42,8 @@ public class BoothRepository : IBoothRepository
         return _productDbContext.SaveChangesAsync();
     }
 
-
+    public bool CheckIfBoothExists(Guid boothId)
+    {
+        return _productDbContext.Booth.Any(b => b.Id == boothId);
+    }
 }

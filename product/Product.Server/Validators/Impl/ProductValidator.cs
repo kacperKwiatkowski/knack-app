@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using product.Dto;
-using product.Exceptions;
+﻿using product.Exceptions;
 using product.Repository;
+using product.Validators;
 
-namespace product.Validators.Impl;
+namespace Product.Validators.Impl;
 
 public class ProductValidator : IProductValidator
 {
@@ -19,7 +18,7 @@ public class ProductValidator : IProductValidator
     {
         if (!_productRepository.CheckIfProductExists(id))
         {
-            throw new ItemNotFoundException("Following Product.Server id doesn't exists: " + id);
+            throw new ItemNotFoundException("Following product id doesn't exists: " + id);
         }
     }
 }

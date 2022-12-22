@@ -2,7 +2,7 @@
 using Moq;
 using product.Exceptions;
 using product.Repository;
-using product.Validators.Impl;
+using Product.Validators.Impl;
 using Assert = NUnit.Framework.Assert;
 
 namespace Product.UnitTests.Validators;

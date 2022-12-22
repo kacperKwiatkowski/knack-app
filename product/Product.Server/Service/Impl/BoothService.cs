@@ -2,6 +2,7 @@
 using product.Dto;
 using product.Models;
 using product.Repository;
+using product.Validators;
 
 namespace product.Service.Impl;
 
@@ -9,14 +10,17 @@ public class BoothService : IBoothService
 {
     private readonly IMapper _mapper;
     private readonly IBoothRepository _boothRepository;
+    private readonly IBoothValidator _boothValidator;
 
     public BoothService(
         IMapper mapper,
-        IBoothRepository boothRepository
+        IBoothRepository boothRepository,
+        IBoothValidator boothValidator
     )
     {
         _mapper = mapper;
         _boothRepository = boothRepository;
+        _boothValidator = boothValidator;
     }
 
     public async Task<List<BoothDto>> GetAllBooths()
@@ -26,6 +30,7 @@ public class BoothService : IBoothService
 
     public Task DeleteBooth(Guid boothId)
     {
+        _boothValidator.ValidateBoothDelete(boothId);
         return _boothRepository.DeleteBooth(boothId);
     }
 

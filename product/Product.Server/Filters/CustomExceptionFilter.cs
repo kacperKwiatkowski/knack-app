@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using product.Exceptions;
 
 namespace product.Filters;
@@ -14,7 +13,12 @@ public class CustomExceptionFilter : ExceptionFilterAttribute
         
         if (context.Exception is ItemNotFoundException)
         {
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.Ambiguous;
+            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+            apiError = context.Exception.Message;
+        }
+        else
+        {
+            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             apiError = context.Exception.Message;
         }
         

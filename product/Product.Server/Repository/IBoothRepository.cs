@@ -9,4 +9,5 @@ public interface IBoothRepository
     Task DeleteBooth(Guid id);
     Task SaveBooth(BoothEntity boothToSave);
     Task<BoothEntity?> GetBoothById(Guid boothId);
+    bool CheckIfBoothExists(Guid id);
 }
