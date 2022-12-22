@@ -11,8 +11,8 @@ public class BoothObjectProvider
         return new BoothDto()
         {
             Id = id,
-            Description = Guid.NewGuid().ToString(),
-            Title = Guid.NewGuid().ToString()
+            Description = Guid.NewGuid().ToString().Substring(0, 20),
+            Title = Guid.NewGuid().ToString().Substring(0, 20)
         };
     }
 
@@ -20,18 +20,17 @@ public class BoothObjectProvider
     {
         return new CreateBoothDto()
         {
-            Description = Guid.NewGuid().ToString(),
-            Title = Guid.NewGuid().ToString()
+            Description = Guid.NewGuid().ToString().Substring(0, 20),
+            Title = Guid.NewGuid().ToString().Substring(0, 20)
         };
     }
 
-    public static BoothEntity ProvideBoothEntity(Guid id)
+    public static BoothEntity ProvideBoothEntity()
     {
         return new BoothEntity()
         {
-            Id = id,
-            Description = Guid.NewGuid().ToString(),
-            Title = Guid.NewGuid().ToString()
+            Description = Guid.NewGuid().ToString().Substring(0, 20),
+            Title = Guid.NewGuid().ToString().Substring(0, 20)
         };
     }
 }

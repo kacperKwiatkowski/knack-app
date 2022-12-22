@@ -29,7 +29,7 @@ public class BoothController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete("boothId")]
+    [HttpDelete("{boothId:guid}")] 
     public async Task<IActionResult> Delete(Guid boothId)
     {
         await _boothService.DeleteBooth(boothId);

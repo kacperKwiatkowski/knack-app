@@ -8,7 +8,6 @@ using Booth.IntegrationTests.Utils;
 using Newtonsoft.Json;
 using product.Dto;
 using Product.IntegrationTests.Config;
-using Product.IntegrationTests.Utils;
 using product.Models;
 using Xunit;
 
@@ -24,40 +23,48 @@ public class BoothControllerIntegrationTest : BaseTestFixture
     public async Task PostBooth_CreatesBooth()
     {
         // Arrange
-        var boothToCreateDto = BoothObjectProvider.ProvideCreateBoothDto();
-        
-        // Act
-        var response = await _client.PostAsync("/booth", new StringContent(JsonConvert.SerializeObject(boothToCreateDto), Encoding.Default, "application/json"));
+        List<BoothEntity> boothsBeforeOperation = _context.Booth.ToList();
+        CreateBoothDto boothDto = BoothObjectProvider.ProvideCreateBoothDto();
 
-        // Assert
+        // Act
+        var response = await _client.PostAsync("/booth", new StringContent(JsonConvert.SerializeObject(boothDto), Encoding.Default, "application/json"));
         
+        // Assert
+        List<BoothEntity> boothsAfterOperation = _context.Booth.ToList();
+
         Assert.True(response.StatusCode == HttpStatusCode.OK);
-        Assert.Contains(boothToCreateDto.Title, response.Content.ReadAsStringAsync().Result);
-        Assert.Contains(boothToCreateDto.Description, response.Content.ReadAsStringAsync().Result);
+        Assert.NotEqual(boothsAfterOperation, boothsBeforeOperation);
+        Assert.Contains(boothsAfterOperation, b => b.Title.Equals(boothDto.Title) && b.Description.Equals(boothDto.Description));
     }
 
     [Fact]
     public async Task GetBooth_ReturnsAllBooths()
     {
         // Arrange
-        List<ProductEntity> allEntities = _context.Product.ToList();
-
+        List<BoothEntity> allEntities = _context.Booth.ToList();
+    
         // Act
         var response = await _client.GetAsync("/booth");
-        
+
         // Assert
         Assert.True(response.StatusCode == HttpStatusCode.OK);
-        Assert.True(allEntities.TrueForAll(product => response.Content.ReadAsStringAsync().Result.Contains(product.Title)));
-        Assert.True(allEntities.TrueForAll(product => response.Content.ReadAsStringAsync().Result.Contains(product.Description)));
+        Assert.True(allEntities.TrueForAll(booth => response.Content.ReadAsStringAsync().Result.Contains(booth.Title)));
+        Assert.True(allEntities.TrueForAll(booth => response.Content.ReadAsStringAsync().Result.Contains(booth.Description)));
     }
 
     [Fact]
     public async Task DeleteBooth_RemovesBoothById()
     {
         // Arrange
+        BoothEntity boothToDelete = _context.Booth.Add(BoothObjectProvider.ProvideBoothEntity()).Entity;
+        _context.SaveChanges();
+        var l = _context.Booth.ToList();
 
         // Act
-
+        var response = await _client.DeleteAsync("/booth/" + boothToDelete.Id);
+        
         // Assert
+        Assert.True(response.StatusCode == HttpStatusCode.OK);
+        Assert.Null(_context.Booth.SingleOrDefault(booth => booth.Id == boothToDelete.Id));
     }
 }

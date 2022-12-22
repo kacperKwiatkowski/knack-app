@@ -44,7 +44,6 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     public async Task GetAllProducts_ReturnsAllProducts()
     {
         // Arrange
-        _context.Add(BoothObjectProvider.ProvideBoothEntity(Guid.Empty));
         List<ProductEntity> allEntities = _context.Product.ToList();
     
         // Act
@@ -60,14 +59,8 @@ public class ProductControllerIntegrationTest : BaseTestFixture
     public async Task DeleteProduct_RemovesProduct()
     {
         // Arrange
-        
-        // _context.Add(BoothObjectProvider.ProvideBoothEntity(Guid.Empty));
-        // var productToDelete = ProductObjectProvider.ProvideProductEntity(_context.Booth.First().Id);
-        // _context.Product.Add(productToDelete);
-        // List<ProductEntity> p = _context.Product.ToList();
-        
-        var productList = _context.Product.ToList();
-        var productToDelete = productList.First();
+        ProductEntity productToDelete = _context.Product.Add(ProductObjectProvider.ProvideProductEntity()).Entity;
+        _context.SaveChanges();
 
         // Act
         var response = await _client.DeleteAsync("/product/" + productToDelete.Id);

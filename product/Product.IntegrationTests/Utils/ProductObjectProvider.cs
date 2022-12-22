@@ -26,11 +26,10 @@ public class ProductObjectProvider
         };
     }
 
-    public static ProductEntity ProvideProductEntity(Guid id)
+    public static ProductEntity ProvideProductEntity()
     {
         return new ProductEntity()
         {
-            Id = id,
             Description = Guid.NewGuid().ToString().Substring(0, 20),
             Title = Guid.NewGuid().ToString().Substring(0, 20)
         };
