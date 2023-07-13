@@ -5,11 +5,12 @@ import java.util.*
 data class UserDTO(
 
     val id: Long,
+    var username: String,
     val firstName: String,
     val lastName: String,
     val email: String,
-    val username: String,
-    val contactNumber: String,
+    val phoneNumber: String,
+    var dateOfBirth: String,
     val password: String,
     val roleType: String
 )

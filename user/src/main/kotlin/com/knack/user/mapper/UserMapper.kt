@@ -5,7 +5,6 @@ import com.knack.user.dto.UserDTO
 import com.knack.user.model.UserEntity
 import com.knack.user.security.role.RoleType
 import org.modelmapper.ModelMapper
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
@@ -18,7 +17,7 @@ class UserMapper(
     fun mapCreateUserDTOToUserEntity(userToMap: UserCreateDTO): UserEntity{
         val mappedUser = modelMapper.map(userToMap, UserEntity::class.java)
         mappedUser.password = passwordEncoder.encode(userToMap.password)
-        mappedUser.roleType = RoleType.valueOf(userToMap.roleType)
+        mappedUser.roleType = RoleType.USER
         return mappedUser;
     }
 
@@ -26,11 +25,12 @@ class UserMapper(
 
         return UserDTO(
             userToMap.id,
+            userToMap.username,
             userToMap.firstName,
             userToMap.lastName,
             userToMap.email,
-            userToMap.username,
-            userToMap.contactNumber,
+            userToMap.phoneNumber,
+            userToMap.dateOfBirth,
             userToMap.password,
             userToMap.roleType.toString()
         )
