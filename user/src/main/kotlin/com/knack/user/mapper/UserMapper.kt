@@ -24,7 +24,7 @@ class UserMapper(
     fun mapUserEntityToUserDTO(userToMap: UserEntity): UserDTO {
 
         return UserDTO(
-            userToMap.id,
+            userToMap.id.toString(),
             userToMap.username,
             userToMap.firstName,
             userToMap.lastName,

@@ -1,6 +1,7 @@
 package com.knack.user.security.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.knack.user.dto.UserLoginDTO
 import io.jsonwebtoken.Jwts
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -16,7 +17,8 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtUsernameAndPasswordAuthenticationFilter(
+
+class JwtAuthenticationFilter(
     private val authenticationManager: AuthenticationManager,
     private val jwtConfig: JwtConfig,
     private val secretKey: SecretKey,
@@ -29,10 +31,10 @@ class JwtUsernameAndPasswordAuthenticationFilter(
         response: HttpServletResponse?
     ): Authentication {
         return try {
-            val authenticationRequest: UsernameAndPasswordAuthenticationRequest = objectMapper
+            val authenticationRequest: UserLoginDTO = objectMapper
                 .readValue(
                     request.inputStream,
-                    UsernameAndPasswordAuthenticationRequest::class.java
+                    UserLoginDTO::class.java
                 )
             val authentication: Authentication = UsernamePasswordAuthenticationToken(
                 authenticationRequest.username,
@@ -55,7 +57,7 @@ class JwtUsernameAndPasswordAuthenticationFilter(
             .setSubject(authResult.name)
             .claim("authorities", authResult.authorities)
             .setIssuedAt(java.util.Date())
-            .setExpiration(Date.valueOf(LocalDate.now().plusDays(jwtConfig.tokenExpirationAfterDays!!.toLong())))
+            .setExpiration(Date.valueOf(LocalDate.now().plusDays(jwtConfig.tokenExpirationAfterDays.toLong())))
             .signWith(secretKey)
             .compact()
         val body = "{\"jwt\": \"" + jwtConfig.tokenPrefix + token + "\"}"
@@ -68,5 +70,10 @@ class JwtUsernameAndPasswordAuthenticationFilter(
                 jwtConfig.getAuthorizationHeader(),
                 jwtConfig.tokenPrefix + token
             )
+    }
+
+    fun addFilterProcessingURl(url: String): JwtAuthenticationFilter {
+        this.setFilterProcessesUrl(url);
+        return this;
     }
 }

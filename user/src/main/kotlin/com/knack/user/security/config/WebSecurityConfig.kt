@@ -3,9 +3,7 @@ package com.knack.user.security.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.knack.user.security.jwt.JwtConfig
 import com.knack.user.security.jwt.JwtTokenVerifier
-import com.knack.user.security.jwt.JwtUsernameAndPasswordAuthenticationFilter
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
+import com.knack.user.security.jwt.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -22,7 +20,6 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.util.*
-import java.util.List
 import javax.crypto.SecretKey
 
 @Configuration
@@ -49,17 +46,20 @@ class WebSecurityConfig(
             ?.sessionManagement()
             ?.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             ?.and()
-            ?.addFilter(JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey, objectMapper))
+            ?.addFilter(
+                JwtAuthenticationFilter(
+                    authenticationManager(),
+                    jwtConfig,
+                    secretKey,
+                    objectMapper
+                ).addFilterProcessingURl("/auth/login")
+            )
             ?.addFilterAfter(
                 JwtTokenVerifier(secretKey, jwtConfig),
-                JwtUsernameAndPasswordAuthenticationFilter::class.java
+                JwtAuthenticationFilter::class.java
             )
             ?.authorizeRequests()
             ?.antMatchers("/auth/**")?.permitAll()
-            ?.antMatchers("/login")?.permitAll()
-//            .antMatchers("/register").permitAll()
-//            .antMatchers("/register").permitAll()
-//            .antMatchers("/{username}/forgot").permitAll()
             ?.anyRequest()
             ?.authenticated()
     }
@@ -85,7 +85,7 @@ class WebSecurityConfig(
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000/")
+        configuration.allowedOrigins = listOf("http://localhost:4200/")
         configuration.allowedMethods = listOf("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS")
         configuration.addAllowedHeader("*")
         configuration.addAllowedHeader("Content-Type")

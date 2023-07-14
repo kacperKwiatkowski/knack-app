@@ -9,6 +9,6 @@ import javax.crypto.SecretKey
 class JwtSecretKey (private val jwtConfig: JwtConfig) {
     @Bean
     fun secretKey(): SecretKey {
-        return Keys.hmacShaKeyFor(jwtConfig.secretKey!!.toByteArray())
+        return Keys.hmacShaKeyFor(jwtConfig.secretKey.toByteArray())
     }
 }

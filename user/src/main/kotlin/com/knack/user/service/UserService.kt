@@ -11,13 +11,6 @@ class UserService(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
 ) {
-
-    fun createUser (userCreateRequest: UserCreateDTO): UserDTO {
-        return userMapper.mapUserEntityToUserDTO(
-            userRepository.save(
-                userMapper.mapCreateUserDTOToUserEntity(userCreateRequest)))
-    }
-
     fun getUser(id: Long): UserDTO {
         return userMapper.mapUserEntityToUserDTO(userRepository.findById(id).get());
     }
